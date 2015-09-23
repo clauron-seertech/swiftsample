@@ -21,7 +21,19 @@ class Connector{
         request.HTTPMethod = "POST"
         
         // TO DO: Iterate over dictionary to build post string
-        let postString = "name="+details["name"]!+"&bday="+details["bday"]!+"&degree="+details["degree"]!
+        var postString: String = ""
+
+        var x: Int = 0
+        for i in details {
+            postString += i.0 + "="
+            postString += i.1
+            if(x != (details.count-1)) {
+               postString += "&"
+            }
+            x++
+        }
+
+//        let postString = "name="+details["name"]!+"&bday="+details["bday"]!+"&degree="+details["degree"]!
         
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
